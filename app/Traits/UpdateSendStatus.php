@@ -6,7 +6,7 @@ use App\Models\Email_log;
 
 trait UpdateSendStatus
 {
-	public function setSendStatus($payload, $status='Queued')
+	public function logAction($payload, $status='Queued')
 	{
 		/*$record = [
             'email' => 			$data['email'],

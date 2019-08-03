@@ -45,7 +45,7 @@ class SendEmailController extends Controller
         event(new ValidEmailRequestRecieved($data));
 
         //log mail queued
-      	$queued =  $this->setSendStatus($data, "queued");
+      	$queued =  $this->logAction($data, "queued");
 
 
         return response()->json(['message'=>$queued ],200);

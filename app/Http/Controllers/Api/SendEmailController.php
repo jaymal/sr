@@ -5,17 +5,24 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\UpdateSendStatus;
+use App\Services\SendmailService;
 use Illuminate\Support\Facades\Validator;
 
 
 use App\Events\ValidEmailRequestRecieved;
 use App\Rules\MailableExist;
 
+
 //use App\Http\Resources\MessageResource;
 
 class SendEmailController extends Controller
 {
     use UpdateSendStatus;
+    public $sendmailService;
+    public function __construct(SendmailService $sendmailService)
+    {
+    	$this->sendmailService = $sendmailService;
+    }
 
     public function create(Request $request)
     {
@@ -24,26 +31,9 @@ class SendEmailController extends Controller
         //check if valid token
         //pass the request to event
         //queue up the mails and send
-         $data = $request->all();
-         //$data = $this->sentData();
-         //exit(print_r(json_decode($data['payload'])));
-         $data  = (array)json_decode($data['payload']);
+        $data = $request->all();
 
-        $validator = Validator::make($data, [
-		    'to' => 'required',		  
-		    'email' => 'email|required',		  
-		    'subject' => 'required',		  
-		    'message_text' => 'required',		  
-		    'token' => 'required',
-		     'mailable' =>['required', new MailableExist],   			  		 
-		])->validate();
-
-        /*if ($validator->fails()) {
-		    exit("validator failed");
-		}*/
-        //create an event and queue the mail
-        event(new ValidEmailRequestRecieved($data));
-
+		$this->sendmailService->sendMail($data);
         //log mail queued
       	$queued =  $this->logAction($data, "queued");
 

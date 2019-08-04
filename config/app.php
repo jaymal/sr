@@ -151,7 +151,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         //Illuminate\Mail\MailServiceProvider::class,
-        App\Providers\MailjetMailProvider::class,
+        App\Providers\TakeawayMailProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,

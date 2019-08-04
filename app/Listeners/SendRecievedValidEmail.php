@@ -34,7 +34,7 @@ class SendRecievedValidEmail
         $mailableClass= $event->emailData['mailable']; 
         $mailableClassFullName = "\App\Mail\\".$mailableClass;
 
-        Mail::to('arunajamal@yahoo.com')->send(new $mailableClassFullName($event->emailData));
+        Mail::to('arunajamal@gmail.com')->send(new $mailableClassFullName($event->emailData));
         //Mail::to($event->emailData['email'])->send(new \App\Mail\UserSubscribed($event->emailData));
 
       

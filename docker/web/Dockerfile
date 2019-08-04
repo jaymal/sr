@@ -47,7 +47,7 @@ USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["php-fpm && composer install"]
 
 #add the below to run composer install as a final part of the docker-compose up
 #CMD bash -c "composer install && php artisan serve --host 0.0.0.0 --port 5001"

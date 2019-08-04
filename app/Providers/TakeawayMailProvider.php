@@ -4,14 +4,17 @@ namespace App\Providers;
 
 use Illuminate\Mail\MailServiceProvider as MailProvider;
 use App\Transports\MailjetTransportManager;
+use App\Transports\SendgridTransportManager;
+
 use App\Mailer\TakeawayMailer as TakeawayMailer;
 
-class MailjetMailProvider extends MailProvider
+class TakeawayMailProvider extends MailProvider
 {
     protected function registerSwiftTransport()
     {
         $this->app->singleton('swift.transport', function ($app) {
             return new MailjetTransportManager($app);
+            //return new SendgridTransportManager($app);
         });
     }
 

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Email_log extends Model
 {
    
-
+	 protected $guarded = [];
 }

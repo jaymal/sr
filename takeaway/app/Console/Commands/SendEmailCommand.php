@@ -40,17 +40,17 @@ class SendEmailCommand extends Command
      */
     public function handle(SendmailService $sendMailService)
     {
-       $input = $this->arguments()['payload'];
-       
-       $data['to'] = $input[0];
-       $data['email'] = $input[1];
-       $data['subject'] = $input[2];
-       $data['message_text'] = $input[3];
-       $data['token'] = $input[4];
-       $data['mailable'] = $input[5];
-       $data['payload'] = json_encode($data);
+        $input = $this->arguments()['payload'];
 
-       $result = $sendMailService->sendMail( $data );
+        $data['to'] = $input[0];
+        $data['email'] = $input[1];
+        $data['subject'] = $input[2];
+        $data['message_text'] = $input[3];
+        $data['token'] = $input[4];
+        $data['mailable'] = $input[5];
+        $data['payload'] = json_encode($data);
+
+        $result = $sendMailService->sendMail( $data );
 
         $this->info('Display this on the screen');
         $this->info($result);

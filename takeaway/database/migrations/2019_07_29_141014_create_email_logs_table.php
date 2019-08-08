@@ -17,7 +17,6 @@ class CreateEmailLogsTable extends Migration
             $table->bigIncrements('id');
             $table->string('email');
             $table->string('status');
-            $table->string('service_used');
             $table->string('mailable');
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';

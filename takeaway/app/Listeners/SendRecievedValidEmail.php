@@ -7,12 +7,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Events\ValidEmailRequestRecieved;
 use Illuminate\Support\Facades\Mail;
+use App\Traits\LogSendStatus;
 
 //use App\Mail\UserSubscribed;
 
 
-class SendRecievedValidEmail
+class SendRecievedValidEmail implements ShouldQueue
 {
+    
+     use LogSendStatus;
+
     /**
      * Create the event listener.
      *
@@ -31,17 +35,23 @@ class SendRecievedValidEmail
      */
     public function handle($event)
     {
+     
         $mailableClass= $event->emailData['mailable']; 
         $mailableClassFullName = "\App\Mail\\".$mailableClass;
+        $status = 'Sent';
 
-        Mail::to('arunajamal@gmail.com')->send(new $mailableClassFullName($event->emailData));
-        //Mail::to($event->emailData['email'])->send(new \App\Mail\UserSubscribed($event->emailData));
-
+        //Mail::to('arunajamal@gmail.com')->send(new $mailableClassFullName($event->emailData));
+        Mail::to($event->emailData['email'])->send(new $mailableClassFullName($event->emailData));
+        $sent =  $this->logAction($data, $status);
       
-        \Log::info('mail user',['mail'=> $event->emailData['email']]);
+        //\Log::info('mail user',['mail'=> $event->emailData['email']]);
         
          // check for failures
-        /*if (Mail::failures()) {
+        if (Mail::failures()) {
+            $status = 'Failed';
+            $failed =  $this->logAction($data, $status);
+
+            return $status;
             
             // if( count(Mail::failures()) > 0 ) {
 
@@ -52,6 +62,6 @@ class SendRecievedValidEmail
           
             // return response showing failed emails
             //log mail failure
-        }*/
+        }
     }
 }

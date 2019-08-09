@@ -33,16 +33,17 @@ class UserSubscribed extends Mailable implements ShouldQueue
     public function build()
     {
      
-        if (isset($this->mailData['mailFormat'])  && $this->mailData['mailFormat']=='txt'){
+        // if (isset($this->mailData['mailFormat'])  && $this->mailData['mailFormat']=='txt'){
          
-            return $this->view('mails.user-subscribed')
-                 ->text('mails.user-subscribed_plain')
-                 ->with([                     
-                        'email' => $this->mailData['email'],
-                    ]);
+        //     return $this->view('mails.user-subscribed')
+        //          ->text('mails.user-subscribed_plain')
+        //          ->with([                     
+        //                 'email' => $this->mailData['email'],
+        //             ]);
 
-        }
+        // }
         return $this->markdown('mails.user-subscribed')
+                ->text('mails.user-subscribed_plain')
                 ->with([                     
                         'email' => $this->mailData['email'],
                     ]);

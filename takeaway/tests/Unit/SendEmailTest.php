@@ -15,6 +15,9 @@ use App\Mail\UserSubscribed;
 
 class SendEmailTest extends TestCase
 {
+    
+    use RefreshDatabase;
+
     /** @test */
     public function can_not_send_mail_without_mailable()
     {
@@ -76,7 +79,8 @@ class SendEmailTest extends TestCase
 
 		$this->callMailService($addItem =[],$removeItem='', $updateItem=[]);
 
-        Mail::assertSent(UserSubscribed::class);
+        //Mail::assertSent(UserSubscribed::class);
+        Mail::assertQueued(UserSubscribed::class);
 	 
 
     }
@@ -112,7 +116,7 @@ class SendEmailTest extends TestCase
     		'to' => 'to@example.com', 	  
 		    'email' => 'email@example.com',		  
 		    'subject' => 'Subject',		  
-		    'message_text' => 'message text',		  
+		   // 'message_text' => 'message text',		  
 		    'token' => 'token123',
 		    'mailable' =>'UserSubscribed',
     		];
@@ -128,9 +132,7 @@ class SendEmailTest extends TestCase
     	if(!empty($updateItem)){
     		$values = array_merge($values, $updateItem);
     	}
-    	
-    	$data['payload'] = json_encode($values);
 
-    	$service->sendMail($data);
+    	$service->sendMail($values);
     }
 }

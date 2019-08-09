@@ -8,6 +8,6 @@
 
 - I used Docker Toolbox  and my IP designations are as follows
 
-  -- http://192.168.99.100:80/sendMail - Service used for sending the emails
-  -- http://192.168.99.100:80/show - Service used for retrieving email logs
-  -- http://192.168.99.100:5000/  -- Vue app using the service above and displaying the log table
+  - http://192.168.99.100:80/sendMail - Service used for sending the emails
+  - http://192.168.99.100:80/show - Service used for retrieving email logs
+  - http://192.168.99.100:5000/  -- Vue app using the service above and displaying the log table

@@ -8,9 +8,7 @@ trait LogSendStatus
 {
 	public function logAction($payload, $status='Queued')
 	{
-		/*if(isset($payload['queued_id'])){
-            return $this->updateLogStatus($payload, $status='Queued');
-        }*/
+
         $record = [
             'email' => 			$payload['email'],
             'status' => 		$status,
@@ -20,9 +18,9 @@ trait LogSendStatus
         	$record['updated_at'] = date("Y-m-d");
         }
 		$logged =  Email_log::create($record);
+        
         return $logged->id;
 
-		//return $status;
 	}
 
     public function updateLogStatus($payload, $status)

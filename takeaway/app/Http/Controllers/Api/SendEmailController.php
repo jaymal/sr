@@ -34,10 +34,9 @@ class SendEmailController extends Controller
 
     public function show()
     {
-        header('Access-Control-Allow-Origin: *'); 
         $emailLog = $this->sendmailService->getEmailLog();
         return response()->json($emailLog ,200);
-        //return json_encode($d['Sent', 'Queued', 'Removed', 'Failed']);
+
     }
    
 }

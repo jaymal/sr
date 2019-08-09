@@ -33,14 +33,17 @@ class SendEmailCommand extends Command
     }
 
     /**
-     * Execute the console command.to => arg 1,email=>arg2 ,subject =>arg3,
+     * Execute the console command with arguments in the following order
+     * to => arg 1,email=>arg2 ,subject =>arg3,
      * message_text=>arg4,token=>arg 5, mailable=>arg6(mailable file name)
      *
      * @return mixed
      */
     public function handle(SendmailService $sendMailService)
     {
+        $this->info('....Sending');
         $input = $this->arguments()['payload'];
+        
 
         $data['to'] = $input[0];
         $data['email'] = $input[1];
@@ -48,11 +51,9 @@ class SendEmailCommand extends Command
         $data['message_text'] = $input[3];
         $data['token'] = $input[4];
         $data['mailable'] = $input[5];
-        $data['payload'] = json_encode($data);
 
         $result = $sendMailService->sendMail( $data );
 
-        $this->info('Display this on the screen');
-        $this->info($result);
+        $this->info('Message Sent Successfully!');
     }
 }

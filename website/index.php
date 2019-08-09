@@ -1,5 +1,5 @@
 <html>
-<title> VUE APP</title>
+<title>Takeaway Vue App</title>
 <head>
 	
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -67,7 +67,6 @@
               	},
               	getData(){
               		var self  = this;
-					// Make a request for a user with a given ID
 					axios.get('http://192.168.99.100:80/api/show')
 					  .then(function (response) {
 					    // handle success
@@ -87,16 +86,10 @@
 					  });
               	},
               	subscribeUser(){
-              /*	axios.get('http://192.168.99.100:80/api/show') 
-              		.then(function (response) {
-					    // handle success
-					     console.log(response);
-					    
-					  })*/
 					axios.post('http://192.168.99.100:80/api/sendEmail', {
 						
 					    'to': 'John Doe',
-					    'email': 'johndoe@email.com',		  
+					    'email': 'arunajamal@yahoo.com',		  
 					    'subject': 'You have been subscribed',		  
 					    'message_text': 'required',		  
 					    'token': 'token123',

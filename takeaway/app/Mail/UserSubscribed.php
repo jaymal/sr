@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UserSubscribed extends Mailable //implements ShouldQueue
+class UserSubscribed extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -21,6 +21,8 @@ class UserSubscribed extends Mailable //implements ShouldQueue
     public function __construct($mailData)
     {
         $this->mailData = $mailData;
+        $this->mailData['mailFormat'] = 'text';
+        
     }
 
     /**
@@ -30,31 +32,20 @@ class UserSubscribed extends Mailable //implements ShouldQueue
      */
     public function build()
     {
-        if(!isset($this->mailData['mailFormat'])){ //send markdown as defaul
-            return $this->markdown('mails.user-subscribed')
-                ->with([                     
+     
+        if (isset($this->mailData['mailFormat'])  && $this->mailData['mailFormat']=='txt'){
+         
+            return $this->view('mails.user-subscribed')
+                 ->text('mails.user-subscribed_plain')
+                 ->with([                     
                         'email' => $this->mailData['email'],
                     ]);
+
         }
-        //else
-        //$this->mailData['mailFormat'] == markdown,view,text;
-        $format =  isset($this->mailData['mailFormat']) ? 
-                        $this->mailData['mailFormat'] : 
-                        'view';
-        //set format files accordingly
         return $this->markdown('mails.user-subscribed')
                 ->with([                     
                         'email' => $this->mailData['email'],
                     ]);
-        // return $this->from('example@example.com')
-        //         ->view('mails.user-subscribed');
 
-        //plain text
-        // return $this->view('emails.orders.shipped')
-        //         ->text('emails.orders.shipped_plain')
-
-        //markdown
-        // return $this->from('example@example.com')
-        //         ->markdown('emails.orders.shipped');
     }
 }

@@ -8,11 +8,10 @@ use App\Rules\MailableExist;
 use App\Traits\LogSendStatus;
 use App\Models\Email_log;
 
-/**
- * 
- */
+
 class SendmailService
 {
+	
 	use LogSendStatus;
 	
 	function sendMail($data)
@@ -34,13 +33,11 @@ class SendmailService
 
 	function validateSendmailRequest($data)
 	{
-		//$data  = (array)json_decode($data['payload']);
 
         $validator = Validator::make($data, [
 		    'to' => 'required',		  
 		    'email' => 'email|required',		  
-		    'subject' => 'required',		  
-		    'message_text' => 'required',		  
+		    'subject' => 'required',		  		  
 		    'token' => 'required',
 		     'mailable' =>['required', new MailableExist],   			  		 
 		])->validate();

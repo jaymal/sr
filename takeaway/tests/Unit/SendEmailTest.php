@@ -86,7 +86,7 @@ class SendEmailTest extends TestCase
     {
     	$this->withExceptionHandling();
 
-    	$requiredFields = ['to','email', 'subject','message_text','token','mailable'];
+    	$requiredFields = ['to','email', 'subject','token','mailable'];
     	
     	foreach ( $requiredFields as $key => $value) {
    

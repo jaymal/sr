@@ -9,7 +9,6 @@ use App\Events\ValidEmailRequestRecieved;
 use Illuminate\Support\Facades\Mail;
 use App\Traits\LogSendStatus;
 
-//use App\Mail\UserSubscribed;
 
 
 class SendRecievedValidEmail

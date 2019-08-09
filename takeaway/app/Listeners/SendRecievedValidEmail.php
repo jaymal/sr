@@ -12,7 +12,7 @@ use App\Traits\LogSendStatus;
 //use App\Mail\UserSubscribed;
 
 
-class SendRecievedValidEmail implements ShouldQueue
+class SendRecievedValidEmail
 {
     
      use LogSendStatus;
@@ -38,30 +38,18 @@ class SendRecievedValidEmail implements ShouldQueue
      
         $mailableClass= $event->emailData['mailable']; 
         $mailableClassFullName = "\App\Mail\\".$mailableClass;
+        
         $status = 'Sent';
-
-        //Mail::to('arunajamal@gmail.com')->send(new $mailableClassFullName($event->emailData));
-        Mail::to($event->emailData['email'])->send(new $mailableClassFullName($event->emailData));
-        $sent =  $this->logAction($data, $status);
+        Mail::to($event->emailData['email'])->queue(new $mailableClassFullName($event->emailData));
+        $sent =  $this->updateLogStatus($event->emailData, $status);
       
-        //\Log::info('mail user',['mail'=> $event->emailData['email']]);
+        //\Log::info('mail user',['mail'=> $event->emailData['email'], 'status'=> $status, 'data'=> $event->emailData]);
         
          // check for failures
         if (Mail::failures()) {
-            $status = 'Failed';
-            $failed =  $this->logAction($data, $status);
-
-            return $status;
-            
-            // if( count(Mail::failures()) > 0 ) {
-
-            //    foreach(Mail::failures as $email_address) {
-            //        echo "$email_address <br />";
-            //     }
-            // }
-          
-            // return response showing failed emails
             //log mail failure
+            $status = 'Failed';
+            $failed =  $this->updateLogStatus($event->emailData, $status);
         }
     }
 }

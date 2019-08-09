@@ -8,11 +8,11 @@ trait LogSendStatus
 {
 	public function logAction($payload, $status='Queued')
 	{
-		if(isset($payload['queued_id'])){
-            return $this->updateLogStatus();
-        }
+		/*if(isset($payload['queued_id'])){
+            return $this->updateLogStatus($payload, $status='Queued');
+        }*/
         $record = [
-            'email' => 			$payload['to'],
+            'email' => 			$payload['email'],
             'status' => 		$status,
             'mailable' =>  		$payload['mailable'],
         ];

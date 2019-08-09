@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Events\ValidEmailRequestRecieved;
 use App\Rules\MailableExist;
 use App\Traits\LogSendStatus;
+use App\Models\Email_log;
 
 /**
  * 
@@ -33,7 +34,7 @@ class SendmailService
 
 	function validateSendmailRequest($data)
 	{
-		$data  = (array)json_decode($data['payload']);
+		//$data  = (array)json_decode($data['payload']);
 
         $validator = Validator::make($data, [
 		    'to' => 'required',		  
@@ -44,6 +45,11 @@ class SendmailService
 		     'mailable' =>['required', new MailableExist],   			  		 
 		])->validate();
 
+	}
+
+	public function getEmailLog()
+	{
+		return Email_log::all();
 	}
 
 

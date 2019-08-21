@@ -17,5 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Use nouns as resource names (e.g. don’t use verbs in URLs). :(
 Route::post('/sendEmail', 'Api\SendEmailController@create');
 Route::get('/show', 'Api\SendEmailController@show');

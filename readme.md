@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jaymal/takeaway.svg?branch=master)](https://travis-ci.org/jaymal/takeaway)
+
 -  I am assuming 'unavailable'  means we already know that the service is not available and not a run time discovery. 
 
 - I wrote a custom implementation of Laravel mailer class called the TakeawayMailer and made it extend the laravel mailer class.It does nothing other than just extend it because base class has a lot of useful dependencies

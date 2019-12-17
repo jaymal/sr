@@ -33,6 +33,7 @@ class HomeController extends Controller
     	$responseArray = json_decode((string)$response->getBody(), true);
     	$currencies = json_decode($responseArray['data']);
         $apiBaseUrl = env('DOCKER_BASE_IP','http://192.168.99.100');
+        
     	return view('welcome', compact('currencies', 'apiBaseUrl'));
     }
 

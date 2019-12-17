@@ -70,15 +70,6 @@ services:
     networks:
       - app-network
 
-  website:
-    image: php:7.2-apache
-    volumes:
-      - ./web2:/var/www/html
-    ports:
-      - '5000:80'
-    depends_on:
-      - webserver
-
   #'Website' Service
   app2:
     build:

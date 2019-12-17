@@ -1,15 +1,29 @@
-[![Build Status](https://travis-ci.org/jaymal/takeaway.svg?branch=master)](https://travis-ci.org/jaymal/takeaway)
+## Set up instructions
 
--  I am assuming 'unavailable'  means we already know that the service is not available and not a run time discovery. 
+-  docker-compose up -d
 
-- I wrote a custom implementation of Laravel mailer class called the TakeawayMailer and made it extend the laravel mailer class.It does nothing other than just extend it because base class has a lot of useful dependencies
+- Set the DOCKER_BASE_IP enviroment variable in the website .env file here website/.env according to the base IP of your docker configuration. Mine is http://192.168.99.106
 
-- I then did a override of the default implementation of Mailer in Illuminate\Mail\MailServiceProvider by creating a new service provider called TakeawayMailProvider where different custom transport managers[mailjet & sendgrid] can also added
+- run 'docker-compose exec app2 bash'
 
-- I chose to make sending the mail and an event-driven action just incase there'a later decison to send some other kind of mails/notifications
+- run 'php artisan migrate' to create necessary database tables
 
 - I used Docker Toolbox  and my IP designations are as follows
 
-  - http://192.168.99.100:80/sendMail - Service used for sending the emails
-  - http://192.168.99.100:80/show - Service used for retrieving email logs
-  - http://192.168.99.100:5000/  -- Vue app using the service above and displaying the log table
+  - DOCKER_BASE_IP:80 (http://192.168.99.106:80) - The webservice url
+
+  - DOCKER_BASE_IP:8090 (http://192.168.99.106:8090) - The website URL 
+
+	- Here you can enter the amount and currency to convert and also the currency you are converting to.You then click on the 'Convert' button
+
+	- You can click on the Refresh Logs button to view the last 20 conversion history
+
+
+- Tests are located in the /tests folder of each of the sites and to run them
+	- run 'docker-compose exec app bash' then
+	- run 'vendor/bin/phpunit'
+
+
+
+  		
+
